@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 shape: RoundedRectangleBorder(
                   side: const BorderSide(
-                    color: Pallete.greyColor,
+                    color: Pallete.whiteColor,
                     width: 3,
                   ),
                   borderRadius: BorderRadius.circular(20),
