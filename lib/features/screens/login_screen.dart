@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:reddit_clone/core/common/sign_in_button.dart';
 import 'package:reddit_clone/theme/pallete.dart';
+
+import '../../core/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,15 +17,15 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Image.asset(
-            'assets/images/logo.png',
-            width: 30,
+            Constants.logoPath,
+            width: 40,
           ),
           actions: [
             TextButton(
               onPressed: () {},
               child: Text(
                 'Skip',
-                style: TextStyle(color: Pallete.blueColor),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             )
           ],
@@ -31,35 +34,30 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 20,
+              height: 30,
             ),
-            Image.asset(
-              'assets/images/loginEmote.png',
+            Text(
+              'Dive into Anything',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.5,
+              ),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
-            TextButton.icon(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/images/google.png',
-                width: 20,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                Constants.logoEmotePath,
+                height: 400,
               ),
-              label: Text('Continue with Google'),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 40,
-                ),
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    color: Pallete.whiteColor,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            )
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            SignInButton(),
           ],
         ));
   }
