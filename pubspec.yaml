@@ -42,7 +42,7 @@ dependencies:
   cloud_firestore: ^5.6.0
   #sign in user data and save it on console
   firebase_auth: ^5.3.4
-  #google signIn
+  #googlesignin
   google_sign_in: ^6.2.2
   #state management
   flutter_riverpod: ^2.6.1
