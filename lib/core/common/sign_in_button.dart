@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone/features/controller/auth_controller.dart';
 
 import '../../theme/pallete.dart';
-import '../constants.dart';
+import '../constants/constants.dart';
 
 class SignInButton extends ConsumerWidget {
   const SignInButton({super.key});
