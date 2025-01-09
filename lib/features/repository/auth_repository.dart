@@ -48,13 +48,13 @@ class AuthRepository {
         idToken: googleAuth?.idToken,
       );
 
-      late UserModel userModel;
+      UserModel userModel;
 
       //save on firebase console
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
-      //check if new user or not
+      //if user is new
       if (userCredential.additionalUserInfo!.isNewUser) {
         userModel = UserModel(
           name: userCredential.user!.displayName ?? 'untitled',
@@ -66,6 +66,10 @@ class AuthRepository {
           awards: [],
         );
         await _users.doc(userCredential.user!.uid).set(userModel.toMap());
+      } else {
+        //user data from firebase data
+        //get first data from Stream
+        userModel = await getUserData(userCredential.user!.uid).first;
       }
       //when process is successful
       return right(userModel);
@@ -75,5 +79,11 @@ class AuthRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
+  }
+
+  Stream<UserModel> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map(
+          (event) => UserModel.fromMap(event.data() as Map<String, dynamic>),
+        );
   }
 }
