@@ -10,8 +10,12 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider)!;
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+          leading: Icon(Icons.menu),
+        ),
         body: Center(
-      child: Text(user.karma.toString()),
-    ));
+          child: Text(user.karma.toString()),
+        ));
   }
 }
