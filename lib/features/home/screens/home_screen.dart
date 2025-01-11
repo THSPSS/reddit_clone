@@ -13,6 +13,9 @@ class HomeScreen extends ConsumerWidget {
         appBar: AppBar(
           title: Text('Home'),
           leading: Icon(Icons.menu),
+          actions: [
+            Text('My Page'),
+          ],
         ),
         body: Center(
           child: Text(user.karma.toString()),
