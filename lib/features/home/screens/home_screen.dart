@@ -14,6 +14,7 @@ class HomeScreen extends ConsumerWidget {
           title: Text('Home'),
           leading: Icon(Icons.menu),
           actions: [
+            Icon(Icons.search),
             Text('My Page'),
           ],
         ),
