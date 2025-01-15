@@ -1,16 +1,14 @@
 # reddit_clone
 
-A new Flutter project.
+Flutter Reddit Clone Project
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Google SignIn
+2. Using Firestore to save data
+3. Create Communities
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   
+<img src="https://github.com/user-attachments/assets/d42790ae-426e-428a-b2f0-bc642bae7d1d" width=240/>
+<img src="https://github.com/user-attachments/assets/fc0efb8d-b675-4196-9359-db872073b5ae" width=240/>
+<img src="https://github.com/user-attachments/assets/7ed0edd5-d24c-4b47-b617-fe73740b7685" width=240/>
