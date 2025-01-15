@@ -40,7 +40,7 @@ class CommunityRepository {
         .map((event) {
       List<Community> communities = [];
       for (var doc in event.docs) {
-        communities.add(Community.fromMap(doc.data as Map<String, dynamic>));
+        communities.add(Community.fromMap(doc.data() as Map<String, dynamic>));
       }
       return communities;
     });

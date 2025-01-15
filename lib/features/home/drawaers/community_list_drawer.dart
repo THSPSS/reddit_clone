@@ -39,8 +39,9 @@ class CommunityListDrawer extends ConsumerWidget {
                       },
                     ),
                   ),
-                  error: (error, stackTrace) =>
-                      ErrorText(error: error.toString()),
+                  error: (error, stackTrace) => ErrorText(
+                      error:
+                          'while community list drawing error occured ${error.toString()}'),
                   loading: () => Loader(),
                 )
           ],
