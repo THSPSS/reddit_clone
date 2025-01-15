@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:reddit_clone/features/home/drawaers/community_list_drawer.dart';
 
 import '../../controller/auth_controller.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
+
+  void displayDrawer(BuildContext context) {
+    Scaffold.of(context).openDrawer();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,10 +18,12 @@ class HomeScreen extends ConsumerWidget {
         appBar: AppBar(
           centerTitle: false,
           title: Text('Home'),
-          leading: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              onPressed: () => displayDrawer(context),
+              icon: Icon(Icons.menu),
+            );
+          }),
           actions: [
             IconButton(
               onPressed: () {},
@@ -30,6 +37,7 @@ class HomeScreen extends ConsumerWidget {
             )
           ],
         ),
+        drawer: CommunityListDrawer(),
         body: Center(
           child: Text(user.karma.toString()),
         ));
