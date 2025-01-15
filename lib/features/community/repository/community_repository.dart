@@ -8,7 +8,7 @@ import '../../../core/constants/firebase_constants.dart';
 import '../../../core/type_defs.dart';
 import '../../../models/community_model.dart';
 
-final CommunityRepositoryProvider = Provider((ref) {
+final communityRepositoryProvider = Provider((ref) {
   return CommunityRepository(firestore: ref.watch(firestoreProvider));
 });
 
@@ -31,6 +31,19 @@ class CommunityRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
+  }
+
+  Stream<List<Community>> getUserCommunities(String uid) {
+    return _communities
+        .where('members', arrayContains: uid)
+        .snapshots()
+        .map((event) {
+      List<Community> communities = [];
+      for (var doc in event.docs) {
+        communities.add(Community.fromMap(doc.data as Map<String, dynamic>));
+      }
+      return communities;
+    });
   }
 
   CollectionReference get _communities =>
