@@ -39,7 +39,6 @@ class SearchCommunityDelegate extends SearchDelegate {
         data: (communities) => ListView.builder(
               itemCount: communities.length,
               itemBuilder: (BuildContext context, int index) {
-                print('query check $query');
                 final community = communities[index];
                 return ListTile(
                   leading: CircleAvatar(
