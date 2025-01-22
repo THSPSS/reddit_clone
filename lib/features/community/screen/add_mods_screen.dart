@@ -29,14 +29,20 @@ class _AddModsScreenState extends ConsumerState<AddModsScreen> {
     });
   }
 
+  void saveMods() {
+    ref
+        .read(communityControllerProvider.notifier)
+        .addMods(widget.name, uids.toList(), context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.save),
+              onPressed: saveMods,
+              icon: Icon(Icons.done),
             ),
           ],
         ),
