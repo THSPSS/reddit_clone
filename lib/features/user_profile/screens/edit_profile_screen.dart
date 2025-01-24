@@ -63,7 +63,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 title: Text('Edit Profile'),
                 actions: [
                   TextButton(
-                    onPressed: () => save(user),
+                    onPressed: () {},
                     child: Text('Save'),
                   ),
                 ],
