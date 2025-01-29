@@ -126,15 +126,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         ],
                       ),
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                          filled: true,
-                          hintText: 'Name',
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(10),
-                          )),
-                    )
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //       filled: true,
+                    //       hintText: 'Name',
+                    //       focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: Colors.blue),
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       )),
+                    // )
                   ],
                 ),
               ));
