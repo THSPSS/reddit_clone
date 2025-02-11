@@ -24,6 +24,19 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   File? bannerFile;
   File? profileFile;
+  late TextEditingController nameController;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(text: ref.read(userProvider)?.name);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+  }
 
   void selectBannerImage() async {
     final res = await pickImage();
@@ -126,15 +139,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         ],
                       ),
                     ),
-                    // TextField(
-                    //   decoration: InputDecoration(
-                    //       filled: true,
-                    //       hintText: 'Name',
-                    //       focusedBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.blue),
-                    //         borderRadius: BorderRadius.circular(10),
-                    //       )),
-                    // )
+                    TextField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        hintText: 'Name',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(18),
+                      ),
+                    )
                   ],
                 ),
               ));
