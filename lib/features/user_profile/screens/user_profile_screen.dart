@@ -1,27 +1,25 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone/core/common/error_text.dart';
 import 'package:reddit_clone/core/common/loader.dart';
 import 'package:reddit_clone/core/constants/constants.dart';
 import 'package:reddit_clone/core/uitils.dart';
-import 'package:reddit_clone/features/community/controller/community_controller.dart';
 import 'package:reddit_clone/features/controller/auth_controller.dart';
 import 'package:reddit_clone/theme/pallete.dart';
 
-class EditProfileScreen extends ConsumerStatefulWidget {
+class UserProfileScreen extends ConsumerStatefulWidget {
   final String uid;
-  const EditProfileScreen({super.key, required this.uid});
+  const UserProfileScreen({super.key, required this.uid});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
+class _EditProfileScreenState extends ConsumerState<UserProfileScreen> {
   File? bannerFile;
   File? profileFile;
   late TextEditingController nameController;
