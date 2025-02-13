@@ -10,16 +10,21 @@ import 'package:reddit_clone/core/uitils.dart';
 import 'package:reddit_clone/features/controller/auth_controller.dart';
 import 'package:reddit_clone/theme/pallete.dart';
 
+import '../../community/controller/community_controller.dart';
+
 class UserProfileScreen extends ConsumerStatefulWidget {
   final String uid;
-  const UserProfileScreen({super.key, required this.uid});
+  const UserProfileScreen({
+    super.key,
+    required this.uid,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _EditProfileScreenState();
+      _UserProfileScreenState();
 }
 
-class _EditProfileScreenState extends ConsumerState<UserProfileScreen> {
+class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
   File? bannerFile;
   File? profileFile;
   late TextEditingController nameController;
@@ -66,94 +71,94 @@ class _EditProfileScreenState extends ConsumerState<UserProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ref.watch(getUserDataProvider(widget.uid)).when(
-        data: (user) {
-          return Scaffold(
-              backgroundColor: Pallete.darkModeAppTheme.scaffoldBackgroundColor,
-              appBar: AppBar(
-                centerTitle: false,
-                title: Text('Edit Profile'),
-                actions: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('Save'),
-                  ),
-                ],
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 200,
-                      child: Stack(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider)!;
+
+    return Scaffold(
+      body: ref.watch(getCommunityByNameProvider(uid)).when(
+          data: (community) => NestedScrollView(
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverAppBar(
+                      expandedHeight: 150,
+                      floating: true,
+                      snap: true,
+                      flexibleSpace: Stack(
                         children: [
-                          GestureDetector(
-                            onTap: selectBannerImage,
-                            child: DottedBorder(
-                              borderType: BorderType.Rect,
-                              radius: Radius.circular(15),
-                              dashPattern: [10, 4],
-                              strokeCap: StrokeCap.round,
-                              color: Pallete.darkModeAppTheme.textTheme
-                                  .bodyMedium!.color!,
-                              child: Container(
-                                width: double.infinity,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: bannerFile != null
-                                    ? Image.file(bannerFile!)
-                                    : user.banner.isEmpty ||
-                                            user.banner ==
-                                                Constants.bannerDefault
-                                        ? Center(
-                                            child: Icon(
-                                                Icons.camera_alt_outlined,
-                                                size: 40))
-                                        : Image.network(user.banner),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 20,
-                            left: 20,
-                            child: GestureDetector(
-                              onTap: selectProfileImage,
-                              child: profileFile != null
-                                  ? CircleAvatar(
-                                      backgroundImage: FileImage(profileFile!),
-                                      radius: 32,
-                                    )
-                                  : CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(user.profilePic),
-                                      radius: 32,
-                                    ),
-                            ),
+                          Positioned.fill(
+                            child: Image.network(community.banner,
+                                fit: BoxFit.cover),
                           ),
                         ],
                       ),
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        hintText: 'Name',
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(10),
+                    SliverPadding(
+                      padding: EdgeInsets.all(16),
+                      sliver: SliverList(
+                          delegate: SliverChildListDelegate([
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(community.avatar),
+                            radius: 35,
+                          ),
                         ),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(18),
-                      ),
-                    )
-                  ],
-                ),
-              ));
-        },
-        error: (error, stackTarce) => ErrorText(error: error.toString()),
-        loading: () => Loader());
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'r/${community.name}',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            community.mods.contains(user.uid)
+                                ? OutlinedButton(
+                                    onPressed: () {
+                                      // navigateToModTools(context);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 25),
+                                    ),
+                                    child: Text('Mod Tools'),
+                                  )
+                                : OutlinedButton(
+                                    onPressed: () =>
+                                        joinCommunity(ref, community, context),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 25),
+                                    ),
+                                    child: Text(
+                                        community.members.contains(user.uid)
+                                            ? 'Joined'
+                                            : 'Join'),
+                                  ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text('${community.members.length} members'),
+                        ),
+                      ])),
+                    ),
+                  ];
+                },
+                body: Text('Displaying posts'),
+              ),
+          error: (error, stackTrace) => ErrorText(error: error.toString()),
+          loading: () => Loader()),
+    );
   }
 }
